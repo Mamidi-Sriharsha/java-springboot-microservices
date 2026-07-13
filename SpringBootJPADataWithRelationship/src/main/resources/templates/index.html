@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<span th:text="${result}" style="color:red"></span>
+	<h2 th:text="${msg}"></h2>
+	
+	<h2>Add Product</h2>
+<form action="#" th:action="@{/addProductInDb}" method="post" th:object="${pp}">
+	<label>PId</label>
+	<input type="number" th:field="*{pid}"/><br/>
+	<label>PName</label>
+	<input type="text" th:field="*{pname}"/><br/>
+	<label>Price</label>
+	<input type="number" th:field="*{price}"/><br/>
+	<input type="submit" th:value="${buttonValue}" name="bb1"/>
+	<input type="reset" value="reset"/>
+</form>
+	<hr/>
+	
+	<h2>All Product details are </h2>
+<table border="2">
+	<tr>
+		<th>PId</th>
+		<th>PName</th>
+		<th>Price</th>
+		<th>Delete</th>
+		<th>Update</th>
+		<th>Order Place</th>
+	</tr>
+	<tr th:each="product:${products}">
+		<td th:text="${product.pid}"></td>
+		<td th:text="${product.pname}"></td>
+		<td th:text="${product.price}"></td>
+		<td><a th:href="@{/deleteProductFromDb/{pid}(pid=${product.pid})}">Delete</a></td>
+		<td><a th:href="@{/searchProductFromDb/{pid}(pid=${product.pid})}">Update</a></td>
+		<td><a th:href="@{/orderPlace/{pid}(pid=${product.pid})}">Order Place</a></td>
+	</tr>
+</table>
+	<hr/>
+
+
+<h2>View all orders details are </h2>
+<table border="2">
+	<tr>
+		<th>OId</th>
+		<th>OrderDate</th>
+		<th>ProductId</th>
+	
+	</tr>
+	<tr th:each="order:${orders}">
+		<td th:text="${order.oid}"></td>
+		<td th:text="${order.orderdate}"></td>
+		<td th:text="${order.pid}"></td>
+	</tr>
+</table>
+	
+</body>
+</html>
